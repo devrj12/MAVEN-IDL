@@ -1,7 +1,7 @@
 # MAVEN-IDL
 Algorithms to analyze data from MAVEN MISSION to MARS :
 
-Algorithms written in Interative Data Language(IDL) software language to analyze observations made by various sensors onboard the MAVEN mission to understand the interaction between the solar-wind and Mars’ upper atmosphere.The MAVEN (Mars Atmosphere and Volatile Evolution (MAVEN)) mission was launched on November 18, 2013, and entered orbit around Mars on September 21,2014. The MAVEN’s instrument suite consists of eight sensors:
+Algorithms written in Interative Data Language (IDL) software language to analyze observations made by various sensors onboard the MAVEN mission to understand the interaction between the solar-wind and Mars’ upper atmosphere.The MAVEN (Mars Atmosphere and Volatile Evolution (MAVEN)) mission was launched on November 18, 2013, and entered orbit around Mars on September 21,2014. The MAVEN’s instrument suite consists of eight sensors:
 
 ·Magnetometer·Neutral Gas and Ion Mass Spectrometer 
 
