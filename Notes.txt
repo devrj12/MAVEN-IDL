@@ -1,0 +1,132 @@
+
+**********Final**********
+2014-12-18-424a.sav  - d0 product with 1 sec resolution (works fine)
+2014-12-18-424b.sav  - d1 product with 1 sec resolution (but 1/8 of the higher threshold counts) (works fine)
+2014-12-18-424c.sav  - d1 product with 16 sec resolution (but 1/8 of the higher threshold counts) (works fine)
+2014-12-18-424d.sav  - d1 product with 16 sec resolution (without subtraction)
+2014-12-18-424e.sav  - d1 product with 16 sec resolution (with in-built subtraction) (not yet saved as in-built subtraction isn't working : the background files don't exist until 2016)
+
+Both 1 sec and 16 sec (or any such value) data can be saved by 'SEA_reg1aa.pro'(with minor edits/comments). The '1-sec' can be plotted by SEA_reg3a.pro and the 16 sec (or, any such value) can be plotted by SEA_reg3aa.pro.
+
+*****************
+In FILES2 folder:
+  2016-03-12-2820a1.sav  -- d1 product with 16 sec resolution : without background subtraction 
+  2016-03-12-2820a2.sav  -- d1 product with 16 sec resolution : with  (my) background subtraction
+  2016-03-12-2820a3.sav  -- d1 product with 16 sec resolution : with  in-built background subtraction
+*****************
+Final codes :
+*******RADIAL***************
+SEA_reg1.pro [saving data : requiring orbits to be in radial conditions]
+SEA_reg11.pro [saving data : " + subtraction of counts + (d1 : 16-sec resolution if need be)]
+
+
+*******NON-RADIAL***********
+SEA_reg1aa.pro [saving data : not-requiring orbits to be in radial conditions (solar-wind region is necessary) +  subtraction of counts (and could be any resolution)] [need to specify the orbit].
+SEA_reg3a.pro  [making plots for 1-sec resolution data (for both radial and non-radial conditions)]
+SEA_reg3aa.pro [making plots for 16-sec resolution data (for both radial and non-radial conditions)]
+
+
+****
+Make SEA_reg1aa.pro handle "radial case" as well ! Perhaps, it already handles it. (but not exactly the way SEA_reg11 does !. So, it needs to be modified, but modify it to capture -- '2015-08-19-1731a1.sav' ! -- Modified and named SEA_reg1ab.pro) ! Perhaps, SEA_reg11 and SEA_reg1ab are same ! Check (Checked once, and I think they are (saved "2015-08-19-1731a1.sav" and "2015-08-19-1731a2.sav" ) ! -- And both of these could be run by SEA_reg3aa.pro
+
+2016-08-15-3664a1.sav (1-sec resolution, d0 product) !
+2016-08-15-3664a2.sav (16-sec resolution, d1 product) !
+
+********
+Key observation : No heavy ions during radial condition. That was for day 2016-08-15-3664a2 !
+
+Look for spatial position :
+
+spice_position_to_tplot.pro
+MVN_SWIA_MSE_PLOT.pro
+
+spice_position_to_tplot,'Mars','Maven',utimes=Time1,frame=MSO
+tplot, [135, 136]
+
+   
+mvn_swia_mse_plot, pdata = 'MAVEN_POS_(MARS-MSO)', idata = 'mvn_B_1sec_MAVEN_MSO', sdata = 'Den'
+mvn_swia_mse_plot, pdata = 'MAVEN_POS_(MARS-MSO)', idata = 'mvn_B_1sec_MAVEN_MSO', sdata = 'mvn_B_1sec_MAVEN_MSO'
+mvn_swia_mse_plot, pdata = 'MAVEN_POS_(MARS-MSO)', idata = 'mvn_B_1sec_MAVEN_MSO', sdata = 'Mag_T', len = 35
+   (multi-purpose routine : filter plots under different parameters : will do a lot of things)
+mvn_swia_mse_plot, pdata = 'Mars_Mars_POS_(Maven-ECLIPJ2000)_(MARS_MSO)', idata = 'Mars_VEL_(Maven-ECLIPJ2000)', sdata = 'Den'
+
+get_data,'|Vel|', data = vel_mag
+vel_mag1 = vel_mag.Y[*,3]     
+
+ **** (1.) (multi-purpose routine : filter plots under different parameters : will do a lot of things : set the ranges of various things and get a variety of outputs)  
+      (2.) Tailward Escape -- Multiple processes 
+      (3.) Identifying any of these processes during radial conditions will be an excellent science endeavor !
+      (4.) Different escape processes (ion escape channels :sources of electric fields - electric field accelerates it),  
+               --motional electric field (-v x B)
+               --ambi-polar electric field (associated with electron pressure gradient)
+               --Hall electric field  (J x B)
+                Two processes which are probably important in the tail-ward escape is ambi-polar electric field and Hall electric field. 
+       The Hall electric field is there as the magnetic field is draped there, and there is magnetic tension -- that leads to Hall electric field on small scales. There are also a variety of dynamic processes, that people have hypothesized -- waves being one of them/magnetic reconnection, Kelvin-Helmholtz instability, -- dynamic processes instead of quasi-static processes.  
+     (5.) Plume escape - motional electric field (along the electric field). This is less likely as during radial conditions, the motional electric field is zero. 
+
+In our observations, we have seen -- that despite the absence of the plume escape (no velocity along the electric field), the heavy ion (O2+) has been been transported to upstream solar wind region ? How does it get there (2016-08-15)? The question remains unanswered.  
+
+So, is the electric field moving the heavy-ions? Are there tailward escape ? Why is there sudden change in direction (of the angles) at (slightly before) 19:00 UT on 2016-08-15? After 19:00, is it moving along the Electric Field ? Thanks.
+
+In dong's paper, why should the tailward escape only be in -x direction ? Can't it be in any direction in the tailward region ? [That is the definition of the tailward escape].
+
+[[From discussion with Prof. Halekas, it won't expect to see the plume or tailward escape unless the space-craft is in the right spot !]]
+
+NEXT STEP : Look for normal (non-radial) days. And, build a mental image of what the configuartion in normal day looks like ? How the escape occurs in a normal day ? And then compare that with radial day? That will help to see the differences.
+
+https://sci.esa.int/web/mars-express/-/51108-night-side-ionosphere-of-mars
+https://sci.esa.int/web/mars-express/-/51106-dayside-and-night-side-profiles-of-the-martian-ionosphere
+
+'2016-08-15-3663.sav' -- very good example of non-radial with plume escape !
+Key observation : No heavy ions during radial condition. That was for day 2016-08-15-3664a2 ! 
+>  options,'Den', 'yrange',[0,0.5]
+>  options,'|Vel|', 'yrange',[-200,200]
+
+
+  -- Is it flowing along the Electric field during plume escape ? It looks so !
+  -- Is it tailward just before the end of the orbit ?
+  -- What do I make of the density plot -- which is mostly zero (not exactly ?) ? (The density is in units : 1/cm^3. The velocity is in units : 1/m^3).
+
+
+2016-08-15-3664a2 
+    -- Are the heavy-ions seen in Phi-A plot moving in the tailward direction (in the upstream region ! -- what process could be responsible : It is perpendicular to the electric field and opposite to the magnetic field !) ? ** Not exactly. There is a trace of O2+ just before the "background", and they are seen to be 'pushed' by the electric field. But, no clear sign of O2+.
+    -- The absence of a well-defined bow-shock : induced magnetic field between 17:00 UT to 18:00 UT 
+    -- What is intriguing is -- why the bow-shock is undefined in one of the but not the other ? It is due to the orientation of the magnetic field.
+
+'2015-08-15-1711.sav'  -- non-radial example without plume escape ?
+
+Since there is no plume escape, I don't see any escape of the O+ ions in the solar-wind region? But, the velocity plot has values, why?  
+What does it mean ?
+
+
+'2015-08-15-1712a2.sav'  -- very good example of radial ?
+
+But what do the angular plots suggest ? There is non-solar particles seen in SWIA angle panels (mvn_swica_th_counts) ! But, in the STATIC energy panel (mvn_sta_c0_H_E), no heavy ions are seen ! Why ?
+
+Does that mean there has been no escape of O+ -- in this case ! 
+
+***
+  -- Look for absence of induced magnetosphere ! It has been found to be absent during radial conditions in VENUS.
+
+***
+July-05-2022
+So, few observations have been made. (Plume escape being seen during non-radial conditions but not during radial. But, absence of disappearance of the induced magnetosphere during radial case. And escape of (although in very less amount) heavy-ions during radial -- we don't know. I will begin checking new case (in which the non-radial doesn't have plume)). Also, to do :
+   (i) check for other heavy-ions
+  (ii) look for parameters which influence induced magnetosphere : upstream solar wind, pressure, etc.
+  (iii) Make statistical study !
+
+Try 2015-08-15
+
+       
+ 
+
+
+
+
+
+
+
+
+
+
+
